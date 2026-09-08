@@ -1,0 +1,49 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Список статей{% endblock %}
+
+{% block content %}
+    <h1>Список статей</h1>
+    
+    {% if articles %}
+        <ul>
+            {% for article in articles %}
+                <li style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                    <h3>{{ article.title }}</h3>
+                    <p><strong>Дата публикации:</strong> {{ article.pub_date|date:"d.m.Y H:i" }}</p>
+                    <p><strong>Автор:</strong> {{ article.author.name }}</p>
+                    <p><strong>Категория:</strong> {{ article.category.name }}</p>
+                    <p><strong>Теги:</strong>
+                        {% for tag in article.tags.all %}
+                            <span style="background: #eee; padding: 2px 8px; border-radius: 4px; margin: 2px;">
+                                {{ tag.name }}
+                            </span>
+                        {% empty %}
+                            <span>Нет тегов</span>
+                        {% endfor %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        {% if is_paginated %}
+            <div style="margin-top: 20px;">
+                <span>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">← Предыдущая</a>
+                    {% endif %}
+                    
+                    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Следующая →</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Статей пока нет</p>
+    {% endif %}
+    
+    <p><a href="{% url 'shopapp:shop_index' %}">← На главную</a></p>
+{% endblock %}

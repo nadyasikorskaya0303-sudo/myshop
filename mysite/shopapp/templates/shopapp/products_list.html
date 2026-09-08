@@ -1,0 +1,29 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Товары{% endblock %}
+
+{% block content %}
+    <h1>Список товаров</h1>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name }}</strong> -
+                    Цена: {{ product.price }} руб.
+                    {% if product.is_available %}
+                        <span style="color: green;">✅ В наличии</span>
+                    {% else %}
+                        <span style="color: red;">❌ Нет в наличии</span>
+                    {% endif %}
+                    <br>
+                    <small>Количество на складе: {{ product.stock_quantity }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Товаров пока нет</p>
+    {% endif %}
+
+    <p><a href="{% url 'shopapp:shop_index' %}">← На главную</a></p>
+{% endblock %}

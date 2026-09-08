@@ -1,0 +1,10 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Чтение cookies{% endblock %}
+
+{% block content %}
+    <h1>Чтение cookies</h1>
+    <p><strong>Значение cookie 'my_cookie':</strong> {{ cookie_value }}</p>
+    <p><a href="{% url 'myauth:cookie_set' %}">Установить cookie</a></p>
+    <p><a href="{% url 'myauth:login' %}">На страницу входа</a></p>
+{% endblock %}

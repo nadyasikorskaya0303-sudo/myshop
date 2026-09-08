@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <h1>Импорт заказов из CSV</h1>
+    <p>Файл должен содержать колонки:</p>
+    <ul>
+        <li><strong>user_id</strong> — ID пользователя (обязательно)</li>
+        <li><strong>delivery_address</strong> — адрес доставки (обязательно)</li>
+        <li><strong>comment</strong> — комментарий (необязательно)</li>
+        <li><strong>products_ids</strong> — ID товаров через запятую, например: "1,2,3" (необязательно)</li>
+    </ul>
+    <p><strong>Пример CSV:</strong></p>
+    <pre>
+user_id,delivery_address,comment,products_ids
+1,ул. Ленина д.1,Позвонить перед доставкой,1,2
+2,ул. Пушкина д.10,,3
+    </pre>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Импортировать</button>
+    </form>
+    <a href="..">Назад</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать в магазин!</h1>
+    <p>Выберите раздел:</p>
+    <ul>
+        <li><a href="{% url 'shopapp:products_list' %}">📦 Список товаров</a></li>
+        <li><a href="{% url 'shopapp:orders_list' %}">📋 Список заказов</a></li>
+    </ul>
+{% endblock %}

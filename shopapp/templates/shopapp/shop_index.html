@@ -1,0 +1,18 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать в магазин!</h1>
+    
+    <ul>
+        <li><a href="{% url 'shopapp:products_list' %}">📦 Список товаров</a></li>
+        <li><a href="{% url 'shopapp:orders_list' %}">📋 Список заказов</a></li>
+        
+        {% if perms.shopapp.can_add_product %}
+            <li><a href="{% url 'shopapp:product_create' %}">➕ Создать товар</a></li>
+        {% endif %}
+        
+        <li><a href="{% url 'shopapp:upload_file' %}">📎 Загрузить файл</a></li>
+    </ul>
+{% endblock %}

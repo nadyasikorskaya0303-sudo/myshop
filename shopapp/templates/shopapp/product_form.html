@@ -1,0 +1,15 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}{% if form.instance.pk %}Редактирование{% else %}Создание{% endif %} продукта{% endblock %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Редактирование{% else %}Создание{% endif %} продукта</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+    
+    <a href="{% url 'shopapp:products_list' %}">← Назад к списку</a>
+{% endblock %}

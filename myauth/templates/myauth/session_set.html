@@ -1,0 +1,11 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Установка сессии{% endblock %}
+
+{% block content %}
+    <h1>Установка сессии</h1>
+    <p>Значение сессии <strong>'my_session_key'</strong> успешно установлено!</p>
+    <p>Значение: <strong>Hello, Session!</strong></p>
+    <p><a href="{% url 'myauth:session_get' %}">Проверить сессию</a></p>
+    <p><a href="{% url 'myauth:login' %}">На страницу входа</a></p>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p><strong>Описание:</strong> {{ product.description|default:"Нет описания" }}</p>
+    <p><strong>Цена:</strong> {{ product.price }} руб.</p>
+    <p><strong>Количество на складе:</strong> {{ product.stock_quantity }}</p>
+    <p><strong>Доступен:</strong> {{ product.is_available|yesno:"Да,Нет" }}</p>
+    <p><strong>Дата создания:</strong> {{ product.created_at }}</p>
+    <p><strong>Создатель:</strong> {{ product.created_by|default:"Неизвестен" }}</p>
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'shopapp:products_list' %}">← Назад к списку</a>
+        
+        {% if perms.shopapp.can_edit_product and product.created_by == request.user or request.user.is_superuser %}
+            <a href="{% url 'shopapp:product_update' product.pk %}">✏️ Редактировать</a>
+        {% endif %}
+        
+        <a href="{% url 'shopapp:product_archive' product.pk %}" style="color: red;">📦 Архивировать</a>
+    </div>
+{% endblock %}

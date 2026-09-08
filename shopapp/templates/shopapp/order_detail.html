@@ -1,0 +1,26 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Заказ #{{ order.id }}{% endblock %}
+
+{% block content %}
+    <h1>Заказ #{{ order.id }}</h1>
+    <p><strong>Пользователь:</strong> {{ order.user.username }}</p>
+    <p><strong>Адрес доставки:</strong> {{ order.delivery_address }}</p>
+    <p><strong>Комментарий:</strong> {{ order.comment|default:"Нет комментария" }}</p>
+    <p><strong>Дата создания:</strong> {{ order.created_at }}</p>
+    
+    <h3>Товары в заказе:</h3>
+    <ul>
+        {% for item in order.orderitem_set.all %}
+            <li>{{ item.product.name }} x {{ item.quantity }}</li>
+        {% empty %}
+            <li>Нет товаров</li>
+        {% endfor %}
+    </ul>
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'shopapp:orders_list' %}">← Назад к списку</a>
+        <a href="{% url 'shopapp:order_update' order.pk %}">✏️ Редактировать</a>
+        <a href="{% url 'shopapp:order_delete' order.pk %}" style="color: red;">🗑️ Удалить</a>
+    </div>
+{% endblock %}

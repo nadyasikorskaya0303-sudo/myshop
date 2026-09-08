@@ -1,0 +1,28 @@
+{% extends "shopapp/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <h2>Товары в наличии</h2>
+    
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name|upper }}</strong> - 
+                    Цена: {{ product.price|floatformat:2 }} руб.
+                    {% if product.in_stock %}
+                        <span style="color: green;">В наличии</span>
+                    {% else %}
+                        <span style="color: red;">Нет в наличии</span>
+                    {% endif %}
+                    <small>Обновлено: {% now "d.m.Y" %}</small>
+                </li>
+            {% empty %}
+                <li>Товаров нет</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных товаров</p>
+    {% endif %}
+{% endblock %}

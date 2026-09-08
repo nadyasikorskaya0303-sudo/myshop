@@ -1,0 +1,28 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Обо мне{% endblock %}
+
+{% block content %}
+    <h1>Мой профиль</h1>
+    
+    <div style="display: flex; gap: 30px; align-items: flex-start;">
+        <div>
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="Аватар" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+            {% else %}
+                <div style="width: 150px; height: 150px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center;">
+                    Нет аватара
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            <p><strong>Имя пользователя:</strong> {{ request.user.username }}</p>
+            <p><strong>Email:</strong> {{ request.user.email|default:"Не указан" }}</p>
+            <p><strong>О себе:</strong> {{ profile.bio|default:"Не указано" }}</p>
+            <p><strong>Телефон:</strong> {{ profile.phone|default:"Не указан" }}</p>
+            <a href="{% url 'myauth:update_profile' %}">✏️ Редактировать профиль</a>
+        </div>
+    </div>
+    
+    <p><a href="{% url 'shopapp:shop_index' %}">← На главную</a></p>
+{% endblock %}
