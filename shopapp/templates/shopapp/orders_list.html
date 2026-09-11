@@ -1,0 +1,21 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}Список заказов{% endblock %}
+
+{% block content %}
+    <h1>Список заказов</h1>
+    
+    {% for order in orders %}
+        <div style="border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 8px;">
+            <h3><a href="{% url 'shopapp:order_detail' order.pk %}">Заказ #{{ order.id }}</a></h3>
+            <p><strong>Пользователь:</strong> {{ order.user.username }}</p>
+            <p><strong>Адрес:</strong> {{ order.delivery_address }}</p>
+            <p><strong>Комментарий:</strong> {{ order.comment|default:"Нет комментария" }}</p>
+            <p><strong>Дата:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+        </div>
+    {% empty %}
+        <p>Заказов пока нет</p>
+    {% endfor %}
+    
+    <a href="{% url 'shopapp:shop_index' %}">На главную</a>
+{% endblock %}
